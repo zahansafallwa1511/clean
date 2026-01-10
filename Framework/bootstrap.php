@@ -2,17 +2,19 @@
 
 namespace Framework;
 
-require_once __DIR__ . '/../Hexagonal/port/ICoreProvider.php';
-require_once __DIR__ . '/../Hexagonal/port/CacheInterface.php';
-require_once __DIR__ . '/../Hexagonal/adapter/HashMapCacheAdapter.php';
-require_once __DIR__ . '/CoreProvider.php';
-require_once __DIR__ . '/CacheServiceProvider.php';
+require_once __DIR__ . '/port/ICoreProvider.php';
+require_once __DIR__ . '/port/CacheInterface.php';
+require_once __DIR__ . '/adapter/HashMapCacheAdapter.php';
+require_once __DIR__ . '/adapter/lib/phpredis/Redis.php';
+require_once __DIR__ . '/adapter/RedisCacheAdapter.php';
+require_once __DIR__ . '/adapter/providers/CoreProvider.php';
+require_once __DIR__ . '/adapter/providers/CacheServiceProvider.php';
 require_once __DIR__ . '/core/UserService.php';
 
-$coreProvider = new CoreProvider();
+$coreProvider = new Adapter\Providers\CoreProvider();
 
 $providers = [
-    new CacheServiceProvider(),
+    new Adapter\Providers\CacheServiceProvider(),
 ];
 
 foreach ($providers as $provider) {

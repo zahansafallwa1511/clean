@@ -1,8 +1,8 @@
 <?php
 
-namespace Framework;
+namespace Framework\Adapter\Providers;
 
-use Hexagonal\Port\ICoreProvider;
+use Framework\Port\ICoreProvider;
 
 class CoreProvider implements ICoreProvider
 {

@@ -2,8 +2,8 @@
 
 namespace Framework\Core;
 
-use Hexagonal\Port\ICoreProvider;
-use Hexagonal\Port\CacheInterface;
+use Framework\Port\ICoreProvider;
+use Framework\Port\CacheInterface;
 
 class UserService
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Hexagonal\Adapter;
+namespace Framework\Adapter;
 
-use Hexagonal\Port\CacheInterface;
-use Hexagonal\Adapter\PhpRedis\Redis;
+use Framework\Port\CacheInterface;
+use Framework\Adapter\PhpRedis\Redis;
 
 class RedisCacheAdapter implements CacheInterface
 {

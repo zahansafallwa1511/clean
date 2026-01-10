@@ -1,6 +1,6 @@
 <?php
 
-namespace Hexagonal\Port;
+namespace Framework\Port;
 
 interface CacheInterface
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Hexagonal\Adapter;
+namespace Framework\Adapter;
 
-use Hexagonal\Port\CacheInterface;
+use Framework\Port\CacheInterface;
 
 class HashMapCacheAdapter implements CacheInterface
 {

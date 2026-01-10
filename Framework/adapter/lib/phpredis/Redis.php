@@ -1,6 +1,6 @@
 <?php
 
-namespace Hexagonal\Adapter\PhpRedis;
+namespace Framework\Adapter\PhpRedis;
 
 class Redis
 {

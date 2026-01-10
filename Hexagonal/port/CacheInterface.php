@@ -1,9 +1,0 @@
-<?php
-
-namespace Hexagonal\Port;
-
-interface CacheInterface
-{
-    public function get(string $key): mixed;
-    public function set(string $key, mixed $value): void;
-}

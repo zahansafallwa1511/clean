@@ -1,13 +1,14 @@
 <?php
 
-namespace Framework;
+namespace Framework\Adapter\Providers;
 
-use Hexagonal\Adapter\RedisCacheAdapter;
-use Hexagonal\Adapter\HashMapCacheAdapter;
+use Framework\Port\ICoreProvider;
+use Framework\Adapter\RedisCacheAdapter;
+use Framework\Adapter\HashMapCacheAdapter;
 
 class CacheServiceProvider
 {
-    public function register(CoreProvider $core): void
+    public function register(ICoreProvider $core): void
     {
         $driver = getenv('CACHE_DRIVER') ?: 'hashmap';
 

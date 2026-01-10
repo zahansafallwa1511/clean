@@ -4,11 +4,11 @@ namespace TightlyCoupled;
 
 class UserService
 {
-    private RedisCache $cache;
+    private HashMapCache $cache;
 
     public function __construct()
     {
-        $this->cache = new RedisCache();
+        $this->cache = new HashMapCache();
     }
 
     public function getUser(int $userId): ?array

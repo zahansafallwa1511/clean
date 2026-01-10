@@ -1,17 +1,24 @@
 <?php
 
-namespace Hexagonal;
+namespace Framework;
 
-use Hexagonal\Core\UserService;
-use Hexagonal\Adapter\RedisCacheAdapter;
-use Hexagonal\Adapter\HashMapCacheAdapter;
+require_once __DIR__ . '/../Hexagonal/port/ICoreProvider.php';
+require_once __DIR__ . '/../Hexagonal/port/CacheInterface.php';
+require_once __DIR__ . '/../Hexagonal/adapter/HashMapCacheAdapter.php';
+require_once __DIR__ . '/CoreProvider.php';
+require_once __DIR__ . '/CacheServiceProvider.php';
+require_once __DIR__ . '/core/UserService.php';
 
-$env = getenv('CACHE_DRIVER') ?: 'hashmap';
+$coreProvider = new CoreProvider();
 
-if ($env === 'redis') {
-    $cache = new RedisCacheAdapter();
-} else {
-    $cache = new HashMapCacheAdapter();
+$providers = [
+    new CacheServiceProvider(),
+];
+
+foreach ($providers as $provider) {
+    $provider->register($coreProvider);
 }
 
-$userService = new UserService($cache);
+$userService = new Core\UserService($coreProvider);
+$userService->saveUser(1, ['name' => 'John', 'email' => 'john@test.com']);
+var_dump($userService->getUser(1));

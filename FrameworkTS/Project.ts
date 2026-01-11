@@ -3,6 +3,10 @@ import { CacheServiceProvider } from './adapter/providers/CacheServiceProvider';
 import { UserUseCase } from './core/UserUseCase';
 import { HttpServer } from './adapter/inbound/HttpServer';
 import { UserHttpAdapter } from './adapter/inbound/UserHttpAdapter';
+import { LoggingDecorator } from './core/decorator/LoggingDecorator';
+import { CachingDecorator } from './core/decorator/CachingDecorator';
+import { AuditDecorator } from './core/decorator/AuditDecorator';
+import { IUserUseCase } from './port/inbound/IUserUseCase';
 
 export class Project {
     private provider: CoreProvider;
@@ -24,10 +28,18 @@ export class Project {
     run(): void {
         this.registerProviders();
 
-        // Core
-        const userUseCase = new UserUseCase(this.provider);
+        // Core use case
+        const baseUseCase = new UserUseCase(this.provider);
 
-        // Inbound adapter
+        // Wrap with decorators (order matters: outer executes first)
+        const withLogging = new LoggingDecorator(baseUseCase);
+        const withCaching = new CachingDecorator(withLogging);
+        const withAudit = new AuditDecorator(withCaching);
+
+        // Final use case with all decorators
+        const userUseCase: IUserUseCase = withAudit;
+
+        // Controller doesn't know about decorators - just uses IUserUseCase
         const userController = new UserHttpAdapter(userUseCase);
 
         // Server with routes

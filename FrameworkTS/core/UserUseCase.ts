@@ -1,10 +1,15 @@
 import { IUserUseCase } from '../port/inbound/IUserUseCase';
+import { ICoreProvider } from '../port/ICoreProvider';
 import { ICachePort } from '../port/outbound/ICachePort';
 import { User } from './entity/User';
 import { CreateUserDTO } from './dto/CreateUserDTO';
 
 export class UserUseCase implements IUserUseCase {
-    constructor(private cache: ICachePort) {}
+    private cache: ICachePort;
+
+    constructor(provider: ICoreProvider) {
+        this.cache = provider.get<ICachePort>('cache');
+    }
 
     getUser(userId: number): User | null {
         const data = this.cache.get(`user:${userId}`) as { id: number; name: string; email: string } | null;
